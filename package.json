@@ -11,4 +11,8 @@
 , "dependencies": { "redis": "0.6.7" }
 , "devDependencies": { "nodeunit": "0.5.4" }
 , "engines": { "node": "*" }
+, "licenses" : [ { "type" : "MIT"
+                 , "url" : "https://raw.github.com/sintaxi/node-redis-tag/master/README.md"
+                 }
+               ]
 }
