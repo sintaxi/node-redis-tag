@@ -1,6 +1,6 @@
 { "name": "redis-tag"
 , "description": "Tag system using redis"
-, "version": "0.0.2"
+, "version": "0.0.3"
 , "author": "Brock Whitten <brock@sintaxi.com>"
 , "keywords": ["redis", "tagging"]
 , "main": "./redis-tag.js"
