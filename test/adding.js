@@ -11,7 +11,7 @@ module.exports = testCase({
   // 4 - coffeescript     [javascript, client, server, programming]
 
   "should set tags on book 1": function (test) {
-    bookTagger.set(1, "javascript, server, programming", function(rsp){
+    bookTagger.set(1, ["javascript", "server", "programming"], function(rsp){
       test.ok(rsp)
       test.done()
     })
@@ -25,7 +25,7 @@ module.exports = testCase({
   },
 
   "should set tags on book 2": function (test) {
-    bookTagger.set(2, "javascript, client, programming", function(rsp){
+    bookTagger.set(2, ["javascript", "client", "programming"], function(rsp){
       test.ok(rsp)
       test.done()
     })
@@ -39,7 +39,7 @@ module.exports = testCase({
   },
 
   "should set tags on book 3": function (test) {
-    bookTagger.set(3, "ruby, server, programming", function(rsp){
+    bookTagger.set(3, ["ruby", "server", "programming"], function(rsp){
       test.ok(rsp)
       test.done()
     })
@@ -53,7 +53,7 @@ module.exports = testCase({
   },
 
   "should set tags on book 4": function (test) {
-    bookTagger.set(4, "javascript, client, server, programming", function(rsp){
+    bookTagger.set(4, ["javascript", "client", "server", "programming"], function(rsp){
       test.ok(rsp)
       test.done()
     })
@@ -67,7 +67,7 @@ module.exports = testCase({
   },
 
   "should find books from tag": function (test) {
-    bookTagger.find("client", function(rsp){
+    bookTagger.find(["client"], function(rsp){
       test.deepEqual(rsp.sort(), ["2", "4"].sort())
       test.done()
     })

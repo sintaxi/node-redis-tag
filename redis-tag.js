@@ -7,7 +7,7 @@ var Taggable = function(taggable){
 
 Taggable.prototype.set = function(id, tags, cb){
   var that = this
-  var newList = tags.split(", ")
+  var newList = tags
 
   // get current tags
   that.redisClient.smembers(that.taggable + ":" + id + ":tags", function(err, reply){
@@ -62,8 +62,14 @@ Taggable.prototype.get = function(id, cb){
   })
 } 
 
-Taggable.prototype.find = function(tag, cb){
-  this.redisClient.sinter(this.taggable + ":tags:" + tag, function(err, reply){
+Taggable.prototype.find = function(tags, cb){
+  var sets = []
+  var that = this
+  
+  // set list of arguments
+  tags.forEach(function(tag){ sets.push(that.taggable + ":tags:" + tag) })
+ 
+  this.redisClient.sinter(sets, function(err, reply){
     cb(reply)
   })
 } 

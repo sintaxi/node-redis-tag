@@ -5,21 +5,21 @@ var personTagger = new redisTag.Taggable("person")
 module.exports = testCase({
 
   "should set tags on person": function (test) {
-    personTagger.set(21, "hockey, basketball, rugby", function(rsp){
+    personTagger.set(21, ["hockey", "basketball", "rugby"], function(rsp){
       test.ok(rsp)
       test.done()
     })
   },
 
   "should set tags on second person": function (test) {
-    personTagger.set(22, "hockey", function(rsp){
+    personTagger.set(22, ["hockey"], function(rsp){
       test.ok(rsp)
       test.done()
     })
   },
 
   "should change tags first person": function (test) {
-    personTagger.set(21, "cricket, hockey, football, baseball", function(rsp){
+    personTagger.set(21, ["cricket", "hockey", "football", "baseball"], function(rsp){
       test.ok(rsp)
       test.done()
     })
