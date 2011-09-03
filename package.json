@@ -1,0 +1,14 @@
+{ "name": "redis-tag"
+, "description": "Tag system using redis"
+, "version": "0.0.1"
+, "author": "Brock Whitten <brock@sintaxi.com>"
+, "keywords": ["redis", "tagging"]
+, "main": "./redis-tag.js"
+, "scripts": { "test": "./node_modules/.bin/nodeunit test" }
+, "repository": { "type": "git"
+                , "url": "https://github.com/sintaxi/node-redis-tag.git"
+                }
+, "dependencies": { "redis": "0.6.7" }
+, "devDependencies": { "nodeunit": "0.5.4" }
+, "engines": { "node": "*" }
+}
