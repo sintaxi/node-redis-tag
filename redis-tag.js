@@ -44,12 +44,10 @@ Taggable.prototype.set = function(id, tags, cb){
         .srem(that.taggable + ":tags:" + tag, id)
         .zincrby(that.taggable + ":tags", -1, tag)
         .exec(function (err, replies) {
-
           // remove tag from system if count is zero
           if(replies[2] == "0"){
             that.redisClient.zrem(that.taggable + ":tags", tag)
           }
-         
           toRemoveCount --
           if(toAddCount == 0 && toRemoveCount == 0) cb(true)
         })

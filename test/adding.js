@@ -2,13 +2,14 @@ var redisTag = require("../redis-tag")
 var testCase = require('nodeunit').testCase
 
 var bookTagger = new redisTag.Taggable("book")
-module.exports = testCase({
 
-  // book                 tags
-  // 1 - node             [javascript, server, programming]
-  // 2 - jquery           [javascript, client, programming]
-  // 3 - rails            [ruby, server, programming]
-  // 4 - coffeescript     [javascript, client, server, programming]
+// book                 tags
+// 1 - node             [javascript, server, programming]
+// 2 - jquery           [javascript, client, programming]
+// 3 - rails            [ruby, server, programming]
+// 4 - coffeescript     [javascript, client, server, programming]
+
+module.exports = testCase({
 
   "should set tags on book 1": function (test) {
     bookTagger.set(1, ["javascript", "server", "programming"], function(rsp){
@@ -66,9 +67,30 @@ module.exports = testCase({
     })
   },
 
+  "should get empty array if book has not been tagged": function (test) {
+    bookTagger.get(99, function(rsp){
+      test.deepEqual(rsp, [])
+      test.done()
+    })
+  },
+
   "should find books from tag": function (test) {
     bookTagger.find(["client"], function(rsp){
       test.deepEqual(rsp.sort(), ["2", "4"].sort())
+      test.done()
+    })
+  },
+
+  "should get empty array for non existing tag": function (test) {
+    bookTagger.find(["maytag"], function(rsp){
+      test.deepEqual(rsp, [])
+      test.done()
+    })
+  },
+
+  "should get all items if no tags specified": function (test) {
+    bookTagger.find([], function(rsp){
+      test.equal(rsp, undefined)
       test.done()
     })
   },
