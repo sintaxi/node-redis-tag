@@ -12,20 +12,20 @@ Taggable.prototype.set = function(id, tags, cb){
   // get current tags
   that.redisClient.smembers(that.taggable + ":" + id + ":tags", function(err, reply){
 
-    if(reply){
-      var oldList = reply
-    }else{
-      var oldList = []
-    }
+    // keep record of old list
+    var oldList = reply ? reply : []
 
-    // could be optomized
+    // make array of tags that need to be added
     var removed = oldList.filter(function(i){ return newList.indexOf(i) == -1 })     
+
+    // make array of tags that need to be removed
     var added   = newList.filter(function(i){ return oldList.indexOf(i) == -1 })     
 
     // set counters
     var toAddCount    = added.length
     var toRemoveCount = removed.length
 
+    // add new tags
     added.forEach(function(tag){
       that.redisClient.multi()
         .sadd(that.taggable + ":" + id + ":tags", tag)
@@ -37,15 +37,18 @@ Taggable.prototype.set = function(id, tags, cb){
         })
     })
 
+    // remove the rest
     removed.forEach(function(tag){
       that.redisClient.multi()
         .srem(that.taggable + ":" + id + ":tags", tag)
         .srem(that.taggable + ":tags:" + tag, id)
         .zincrby(that.taggable + ":tags", -1, tag)
         .exec(function (err, replies) {
+
           // remove tag from system if count is zero
-          if(replies[2] == "0")
+          if(replies[2] == "0"){
             that.redisClient.zrem(that.taggable + ":tags", tag)
+          }
          
           toRemoveCount --
           if(toAddCount == 0 && toRemoveCount == 0) cb(true)
@@ -102,3 +105,4 @@ Taggable.prototype.quit = function(){
 }
 
 exports.Taggable = Taggable
+
