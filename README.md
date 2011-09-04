@@ -14,7 +14,7 @@ information...
       "name": "yourapplication",
       "verson": "0.0.1",
       "dependencies": {
-        "redis-tag": "0.1.0"
+        "redis-tag": "0.2.0"
       }
     }
 
