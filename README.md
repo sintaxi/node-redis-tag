@@ -1,12 +1,12 @@
 # redis-tag
 
-Tagging is the perfect job for redis wouldn't you agree? This library makes it
+Tagging is the perfect job for Redis, wouldn't you agree? This library makes it
 easy to implement a tagging system into any node appication. It has only 4
 public methods and sets up all the associations for you. 
 
-## Instalation
+## Installation
 
-I always recomend you bundle your dependencies with your application. To do
+I always recommend you bundle your dependencies with your application. To do
 this, create a `package.json` file in the root of your project with the minimum
 information...
 
